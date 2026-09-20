@@ -1,0 +1,10 @@
+projeto_one:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: athena-493617
+      dataset: "{{ env_var('DBT_NAME', 'dbt')}}"
+      threads: 4
+      keyfile: 'C:\anderson\projetos\athena-493617-7ffbce537f59.json'

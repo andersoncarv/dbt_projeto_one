@@ -1,0 +1,112 @@
+version: 2
+
+sources:
+  - name: ecommerce
+    description: "Dados da Loja ecommerce"
+    schema: dbt_raw
+    loader: bigquery
+
+    tables:
+
+      - name: clientes
+        description: 'Tabela de Clientes'
+        columns:
+          - name: id
+            description: 'ID do Cliente Chave Primária da Tabela'
+            data_tests:
+              - not_null
+              - unique
+          - name: nome
+          - name: email
+          - name: telefone
+          - name: data_registro
+
+
+      - name: produtos
+        description: "Tabela de Produtos"
+        columns:
+        - name: id
+          description: "ID do Produto | Chave Primária da Tabela"
+          data_tests:
+            - not_null
+            - unique
+        - name: nome
+        - name: descricao
+        - name: categoria_id
+          description: "Chave Estrangeira da Tabela Categorias"
+        - name: preco
+          description: "Valor Unitário do Produto"
+        - name: marca
+        - name: estoque
+          description: "Saldo Estoque do Produto"
+        - name: data_cadastro
+
+      - name: categorias
+        description: "Tabela de Categoria dos Produtos"
+        columns:
+        - name: id
+          description: "ID da Categoria | Chave Primária da Tabela"
+          data_tests:
+            - not_null
+            - unique
+        - name: nome
+        
+      - name: pagamentos
+        description: "Tabela de Pagamentos"
+        columns:
+          - name: id
+            description: "ID do Pagamento | Chave Primária da Tabela"
+            data_tests:
+            - not_null
+            - unique
+          - name: pedido_id
+            description: "Chave Estrangeira da Tabela Pedidos"
+          - name: valor
+          - name: metodo
+          - name: status
+          - name: data_pagamento
+    
+      - name: pedidos
+        description: "Tabela de Pedidos"
+        columns:
+          - name: id
+            description: "Chave Primária da Tabela"
+            data_tests:
+              - not_null
+              - unique
+          - name: cliente_id
+            description: "Chave Estrangeira da Tabela Clientes"
+          - name: endereco_id
+          - name: data_pedido
+          - name: status
+
+      - name: carrinho
+        description: "Tabela de Carrinho de Compras"
+        columns:
+          - name: cliente_id
+            description: "Chave Estrangeira da Tabela Clientes"
+          - name: produto_id
+            description: "Chave Estrangeira da Tabela Produtos"
+          - name: quantidade
+          - name: data_adicionado
+      - name: itens_pedidos
+        description: "Tabela de Itens do Pedido"
+        columns:
+          - name: pedido_id
+            description: "Chave Estrangeira da Tabela Pedidos"
+          - name: produto_id
+            description: "Chave Estrangeira da Tabela Produtos"
+          - name: quantidade
+          - name: preco_unitario
+          - name: subtotal
+
+      - name: avaliacoes
+        description: "Tabela de Avaliações"
+        columns:
+          - name: cliente_id
+            description: "Chave Estrangeira da Tabela Clientes"
+          - name: produto_id
+            description: "Chave Estrangeira da Tabela Produtos"
+          - name: nota
+          - name: comentario
+          - name: data_avaliacao
