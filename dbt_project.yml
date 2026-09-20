@@ -1,0 +1,37 @@
+
+name: 'projeto_one'
+version: '1.0.0'
+
+profile: 'projeto_one'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+models:
+  projeto_one:
+    staging:
+      +schema: stg
+      +materialized: table
+      +tags: '[staging]'
+    intermediate:
+      +schema: int
+      +materialized: table
+      +tags: '[intermediate]'
+    marts:
+      +schema: marts
+      +materialized: view
+      +tags: '[marts]'
+seeds:
+  projeto_one:
+    +schema: raw
+    +tags: '[seed]' 
+
+
